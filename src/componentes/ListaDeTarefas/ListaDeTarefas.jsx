@@ -31,6 +31,15 @@ const ListaDeTarefas = () => {
     return usuario ? usuario.name : 'Usuário Desconhecido';
   };
 
+  // Função que marca a tarefa como concluída
+  const marcarComoConcluida = (idTarefa) => {
+    setTarefas((tarefasAtuais) =>
+      tarefasAtuais.map((tarefa) =>
+        tarefa.id === idTarefa ? { ...tarefa, completed: true } : tarefa
+      )
+    );
+  };
+
   return (
     <div>
       <div className="tarefas-completas">
@@ -52,7 +61,7 @@ const ListaDeTarefas = () => {
           {tarefas
             .filter((tarefa) => !tarefa.completed)
             .map((tarefa) => (
-              <li key={tarefa.id}>
+              <li key={tarefa.id} onClick={() => marcarComoConcluida(tarefa.id)}>
                 {obterNomeUsuario(tarefa.userId)} - {tarefa.title}
               </li>
             ))}
